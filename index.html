@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<button id='c'>add consonant</button>
+<button id='v'>add vowel</button>
+<button id='s'>add specific string</button>
+<button id='r'>Reset</button>
+<hr/>
+<div id='myalgorithmflow'></div>
+<hr/>
+<input type="number" id="number" required>
+<button id='generate'>Generate</button>
+<hr/>
+<div id="results">build logic and click generate</div>
+
+<script src="jquery.min.js"></script>
+<script type='text/javascript'>
+function v(vowelPos){
+	vowel = '';
+	if(vowelPos == 1){
+		vowel = 'a';
+	}else if (vowelPos == 2){
+		vowel = 'e';
+	}else if (vowelPos == 3){
+		vowel = 'i';
+	}else if (vowelPos == 4){
+		vowel = 'o';
+	}else if (vowelPos == 5){
+		vowel = 'u';
+	}
+	return vowel;
+}
+
+function c(vowelPos){
+	vowel = '';
+	if(vowelPos == 1){
+		vowel = 'a';
+		c(parseInt(Math.random() * 26 + 1));
+	}else if (vowelPos == 2){
+		vowel = 'b';
+	}else if (vowelPos == 3){
+		vowel = 'c';
+	}else if (vowelPos == 4){
+		vowel = 'd';
+		ready = true;
+	}else if (vowelPos == 5){
+		vowel = 'e';
+		c(parseInt(Math.random() * 26 + 1));
+	}else if (vowelPos == 6){
+		vowel = 'f';
+	}else if (vowelPos == 7){
+		vowel = 'g';
+	}else if (vowelPos == 8){
+		vowel = 'h';
+	}else if (vowelPos == 9){
+		vowel = 'i';
+		c(parseInt(Math.random() * 26 + 1));
+	}else if (vowelPos == 10){
+		vowel = 'j';
+	}else if (vowelPos == 11){
+		vowel = 'k';
+	}else if (vowelPos == 12){
+		vowel = 'l';
+	}else if (vowelPos == 13){
+		vowel = 'm';
+	}else if (vowelPos == 14){
+		vowel = 'n';
+	}else if (vowelPos == 15){
+		vowel = 'o';
+		c(parseInt(Math.random() * 26 + 1));
+	}else if (vowelPos == 16){
+		vowel = 'p';
+	}else if (vowelPos == 17){
+		vowel = 'q';
+	}else if (vowelPos == 18){
+		vowel = 'r';
+	}else if (vowelPos == 19){
+		vowel = 's';
+	}else if (vowelPos == 20){
+		vowel = 't';
+	}else if (vowelPos == 21){
+		vowel = 'u';
+		c(parseInt(Math.random() * 26 + 1));
+	}else if (vowelPos == 22){
+		vowel = 'v';
+	}else if (vowelPos == 23){
+		vowel = 'w';
+	}else if (vowelPos == 24){
+		vowel = 'x';
+	}else if (vowelPos == 25){
+		vowel = 'y';
+	}else if (vowelPos == 26){
+		vowel = 'z';
+	}
+	return vowel;
+}
+
+function generate(option){
+if(option == 'v'){
+return v(parseInt(Math.random() * 5 + 1));
+}else if(option == 'c'){
+return c(parseInt(Math.random() * 26 + 1));
+}
+}
+
+
+function algorithm(output, n){
+	output.innerHTML =output.innerHTML +  '<h2>Results</h2>';
+	output.innerHTML = output.innerHTML + '[ ';
+	for(var i=1;i<n;i++){	
+		mystring = 'p' +generate('v') +generate('v') +'p' +generate('v');
+		output.innerHTML= output.innerHTML + mystring+" , ";
+	}
+	output.innerHTML= output.innerHTML + " ]";
+}
+
+var x = new Array;
+var count = 0;
+
+function startGame(){
+
+	$("#s").click(function(){
+		var l = prompt('Enter letter?');
+		x.push(l);
+		$("#myalgorithmflow").append("<button>"+l+"</button>");
+	});
+	$("#v").click(function(){
+		$("#myalgorithmflow").append("<button onlick=alert('hello') id =btn'"+x+"'"+">vowel</button>");
+		x.push('v');
+	});
+	$("#r").click(function(){
+		if(x.length>0){
+			while(x.length > 0){
+				x.pop();
+			}
+			$("#myalgorithmflow").html("");
+			$("#results").html("");
+		}else{
+			//alert("already empty");
+		}
+	});
+
+	$("#c").click(function(){
+		$("#myalgorithmflow").append("<button class='letter' id =btn'"+x+"'"+">consonant</button>");
+		x.push('c');
+	});
+	var output = document.getElementById("results");
+	output.innerHTML = '';
+	var generateBtn = document.getElementById("generate");
+	generateBtn.addEventListener('click',function(){
+	output.innerHTML = '';
+	if(x.length == 0){
+		alert('sorry build your logic first');
+	}else{
+		var n = $("#number").val();
+		output.innerHTML = output.innerHTML + '[ ';
+		for(var y=0;y<n;y++){
+		mystring = ''
+			for(var i=0;i<x.length;i++){
+				if((String(x[i]) == String("c")) || (String(x[i]) == String("v"))){
+					mystring = mystring +generate(x[i]);
+				}else{
+					mystring = mystring + x[i];
+				}
+			}
+		output.innerHTML= output.innerHTML + mystring+" , ";
+		}
+		output.innerHTML= output.innerHTML + " ]";
+	}
+	//algorithm(output,number);
+   });
+}
+
+
+startGame()
+
+</script>
+</body>
+</html>
